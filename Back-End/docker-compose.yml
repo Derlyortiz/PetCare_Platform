@@ -5,9 +5,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DB_URL: jdbc:mysql://localhost:3307/petcare?createDatabaseIfNotExist=true&serverTimezone=UTC
-      DB_USER: root
-      DB_PASSWORD: 1234
+      DB_URL: ${DOCKER_DB_URL_PETCARE}
+      DB_USER: ${DOCKER_DB_USER_PETCARE}
+      DB_PASSWORD: ${DOCKER_DB_PASSWORD_PETCARE}
     restart: always
     depends_on:
       db_petcare:
@@ -18,11 +18,12 @@ services:
     ports:
       - "3307:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_PASSWORD: 1234
-      MYSQL_DATABASE: petcare
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD_PETCARE}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD_PETCARE}
+      MYSQL_DATABASE: ${MYSQL_DATABASE_PETCARE}
     restart: always
     healthcheck:
       test: ["CMD", "mysqladmin", "ping","-h", "localhost"]
       timeout: 10s
+
       retries: 10
